@@ -1,1 +1,1 @@
-A curated list for awesome knative sources
+# Awesome Knative
