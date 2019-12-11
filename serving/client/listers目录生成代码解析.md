@@ -1,10 +1,10 @@
-# listeners目录生成代码解析
+# listers目录生成代码解析
 
 ## 资源组
 
 ### 资源组的版本
 
-#### 资源组的版本的具体资源的Listener
+#### 资源组的版本的具体资源的Lister
 
 ```
 路径:serving/pkg/client/listers/serving/v1/service.go
