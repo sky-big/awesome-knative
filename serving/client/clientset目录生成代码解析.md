@@ -2,6 +2,8 @@
 
 ## 资源组的client集合
 ```
+路径:serving/pkg/client/clientset/versioned/clientset.go
+
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
 	AutoscalingV1alpha1() autoscalingv1alpha1.AutoscalingV1alpha1Interface
@@ -27,6 +29,8 @@ type Clientset struct {
 ## 每个资源组的client具体实现
 
 ```
+路径:serving/pkg/client/clientset/versioned/typed/serving/v1/serving_client.go
+
 例如：serving资源组
 
 type ServingV1Interface interface {
@@ -36,12 +40,19 @@ type ServingV1Interface interface {
 	RoutesGetter
 	ServicesGetter
 }
+
+type ServingV1Client struct {
+	restClient rest.Interface
+}
 ```
 
 ## 每个资源组下面具体资源client具体实现
 
 ```
+路径:serving/pkg/client/clientset/versioned/typed/serving/v1/service.go
+
 例如：serving资源组下面具体资源Service的client具体实现
+
 type ServiceInterface interface {
 	Create(*v1.Service) (*v1.Service, error)
 	Update(*v1.Service) (*v1.Service, error)
@@ -53,5 +64,10 @@ type ServiceInterface interface {
 	Watch(opts metav1.ListOptions) (watch.Interface, error)
 	Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1.Service, err error)
 	ServiceExpansion
+}
+
+type services struct {
+	client rest.Interface
+	ns     string
 }
 ```
