@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/sky-big/awesome-knative/pkg/test/empty_struct/other"
+	"github.com/sky-big/awesome-knative/pkg/doc/test/empty_struct/other"
 )
 
 type EmptyStruct struct{}
