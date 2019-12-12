@@ -4,7 +4,7 @@
 
 该目录下的代码是通过kubernetes的代码生成框架生成的serving服务相关CRD资源的SDK
 
-## [queue](./queue)
+## [queue](./queue/queue.md)
 
 1. 该目录为用户容器的SideCar,为每个用户的POD注入的QUEUE代理容器(queue-proxy)
 
