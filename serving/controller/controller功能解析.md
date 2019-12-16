@@ -2,6 +2,11 @@
 
 ## [service-controller](service-controller/service-controller功能解析.md)
 
+```
+1. 创建Configuration和Route资源
+2. Service更新Template,则Controller会同时更新Configuration资源, 然后Configuration Controller创建新版本Revision资源
+```
+
 ## [configuration-controller](configuration-controller/configuration-controller功能解析.md)
 
 ## [labeler-controller](labeler-controller/labeler-controller功能解析.md)
