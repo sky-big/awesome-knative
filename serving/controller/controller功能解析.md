@@ -9,6 +9,10 @@
 
 ## [configuration-controller](configuration-controller/configuration-controller功能解析.md)
 
+```
+1. 根据Configuration资源的Spec定义创建Revision资源
+```
+
 ## [labeler-controller](labeler-controller/labeler-controller功能解析.md)
 
 ## [revision-controller](revision-controller/revision-controller功能解析.md)

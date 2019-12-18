@@ -25,3 +25,13 @@
 ```
 
 ## [controller](controller/controller功能解析.md)
+
+```
+一. 计算资源
+1. 根据Service资源创建Configuration资源
+2. 根据Configuration资源创建Revision资源
+3. Revision则创建Pod资源
+
+二. 网络资源
+1. 根据Service资源创建Route资源
+```
