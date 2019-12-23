@@ -14,7 +14,9 @@ func (c *Reconciler) reconcile(ctx context.Context, config *v1alpha1.Configurati
 	// and may not have had all of the assumed defaults specified.  This won't result
 	// in this getting written back to the API Server, but lets downstream logic make
 	// assumptions about defaulting.
+	// 给Configuration资源设置默认值
 	config.SetDefaults(v1.WithUpgradeViaDefaulting(ctx))
+	// 给Configuration的Status结构里初始化Running的条件
 	config.Status.InitializeConditions()
 
 	if err := config.ConvertUp(ctx, &v1beta1.Configuration{}); err != nil {
@@ -29,8 +31,10 @@ func (c *Reconciler) reconcile(ctx context.Context, config *v1alpha1.Configurati
 	config.Status.ObservedGeneration = config.Generation
 
 	// First, fetch the revision that should exist for the current generation.
+	// 获取该Configuration资源对应的Revision资源
 	lcr, err := c.latestCreatedRevision(config)
 	if errors.IsNotFound(err) {
+	    // 如果该Configuration资源对应的Revision资源不存在,则创建该Revision资源
 		lcr, err = c.createRevision(ctx, config)
 		if err != nil {
 			c.Recorder.Eventf(config, corev1.EventTypeWarning, "CreationFailed", "Failed to create Revision: %v", err)
@@ -82,6 +86,7 @@ func (c *Reconciler) reconcile(ctx context.Context, config *v1alpha1.Configurati
 		return fmt.Errorf("unrecognized condition status: %v on revision %q", rc.Status, revName)
 	}
 
+    // 设置该Configuration资源对应的最新版Ready的Revision资源名字,将该Ready的Revsion资源的名字存储在Configuration资源的Status结构里
 	if err = c.findAndSetLatestReadyRevision(config); err != nil {
 		return fmt.Errorf("failed to find and set latest ready revision: %w", err)
 	}
