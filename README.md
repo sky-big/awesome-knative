@@ -15,3 +15,5 @@ KNative项目[Serving](https://github.com/knative/serving)的代码层级的解�
 ## Knative Deployment
 
 [KNative部署](./deployment)
+
+参考[阿里云KNative团队维护的Release](https://github.com/knative-sample/knative-release)
