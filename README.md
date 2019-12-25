@@ -11,3 +11,7 @@ KNative项目[Eventing](https://github.com/knative/eventing)的代码层级的�
 ## Knative Serving
 
 KNative项目[Serving](https://github.com/knative/serving)的代码层级的解读[README](./serving)
+
+## Knative Deployment
+
+[KNative部署](./deployment)
