@@ -23,5 +23,3 @@ $ make install
 ```
 $ make uninstall
 ```
-
-参考[阿里云KNative团队维护的Release](https://github.com/knative-sample/knative-release)
