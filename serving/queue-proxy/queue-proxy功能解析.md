@@ -45,6 +45,10 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 3. Queue-Proxy Push Metric Handler
 
+(1). 会上报每个请求从进入queue-proxy到user-app的整体执行时间和次数
+
+(2). 具体参考[metric功能解析](./metric功能解析.md)
+
 4. Http Log Handler
 
 5. TimeOut Handler
@@ -54,3 +58,7 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 7. Main Handler
 
 8. User Container Metric Handler
+
+(1). 会上报每个请求在user-app里面精确的执行时间和具体执行次数
+
+(2). 具体参考[metric功能解析](./metric功能解析.md)
