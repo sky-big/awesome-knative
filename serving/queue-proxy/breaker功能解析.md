@@ -1,8 +1,56 @@
 # Breaker功能解析
 
-## Semaphore结构
+## Breaker结构
 
 1. 数据结构
+```
+type Breaker struct {
+	pendingRequests chan struct{}
+	sem             *semaphore
+}
+```
+
+2. queue-proxy容器获取token然后将请求转发给用户容器
+(1). 如果breaker的排队队列已满则立刻返回告诉调用方并发队列已满
+(2). 如果用户正常进入到排队队列后，从semaphore里获取token，如果获取成功则执行转发请求，
+     否则获取token超时，则返回调用方获取token超时
+```
+func (b *Breaker) Maybe(ctx context.Context, thunk func()) error {
+	select {
+	default:
+		// Pending request queue is full.  Report failure.
+		return ErrRequestQueueFull
+	case b.pendingRequests <- struct{}{}:
+		// Pending request has capacity.
+		// Defer releasing pending request queue.
+		defer func() {
+			<-b.pendingRequests
+		}()
+
+		// Wait for capacity in the active queue.
+        // 从semaphore对象获取token
+		if err := b.sem.acquire(ctx); err != nil {
+			return err
+		}
+		// Defer releasing capacity in the active.
+		// It's safe to ignore the error returned by release since we
+		// make sure the semaphore is only manipulated here and acquire
+		// + release calls are equally paired.
+        // 向semaphore释放token
+		defer b.sem.release()
+
+		// Do the thing.
+        // 执行转发请求操作
+		thunk()
+		// Report success
+		return nil
+	}
+}
+```
+
+## Semaphore结构
+
+1. 数据结构(serving/pkg/queue/breaker.go)
 ```
 type semaphore struct {
 	queue    chan struct{}  // token的channel,增加token向该channel发送数据，减少token从channel里面消费数据
@@ -62,53 +110,5 @@ func (s *semaphore) updateCapacity(size int) error {
 	}
 
 	return nil
-}
-```
-
-## Breaker结构
-
-1. 数据结构
-```
-type Breaker struct {
-	pendingRequests chan struct{}
-	sem             *semaphore
-}
-```
-
-2. queue-proxy容器获取token然后将请求转发给用户容器
-(1). 如果breaker的排队队列已满则立刻返回告诉调用方并发队列已满
-(2). 如果用户正常进入到排队队列后，从semaphore里获取token，如果获取成功则执行转发请求，
-     否则获取token超时，则返回调用方获取token超时
-```
-func (b *Breaker) Maybe(ctx context.Context, thunk func()) error {
-	select {
-	default:
-		// Pending request queue is full.  Report failure.
-		return ErrRequestQueueFull
-	case b.pendingRequests <- struct{}{}:
-		// Pending request has capacity.
-		// Defer releasing pending request queue.
-		defer func() {
-			<-b.pendingRequests
-		}()
-
-		// Wait for capacity in the active queue.
-        // 从semaphore对象获取token
-		if err := b.sem.acquire(ctx); err != nil {
-			return err
-		}
-		// Defer releasing capacity in the active.
-		// It's safe to ignore the error returned by release since we
-		// make sure the semaphore is only manipulated here and acquire
-		// + release calls are equally paired.
-        // 向semaphore释放token
-		defer b.sem.release()
-
-		// Do the thing.
-        // 执行转发请求操作
-		thunk()
-		// Report success
-		return nil
-	}
 }
 ```
