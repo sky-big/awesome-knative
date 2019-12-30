@@ -1,9 +1,13 @@
 # Probe Handler功能解析
 
+该探活主要是Istio Ingress Controller来判断VritualService是否Ready来进行探活后端的容器是否活着
+
 ## Probe Handler(serving/pkg/network/probe_handler.go)
 
 (1). 如果请求的Header里面有K-Network-Probe = probe则直接立刻返回200给请求客户端
+
 (2). 如果请求的Header里面没有K-Network-Probe = probe则将该请求继续转给后续的Handler进行处理
+
 ```
 func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     // 如果请求的Header里面的K-Network-Probe不等于probe则继续讲请求给后续的Handler进行处理
