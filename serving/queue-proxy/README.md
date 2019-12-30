@@ -70,6 +70,10 @@
 
 ### TimeOut Handler
 
+```
+(1). 处理用户请求超时,如果超时报超时给客户端
+```
+
 具体参考[timeout-hanler功能解析](./timeout-handler功能解析.md)
 
 ### Forwarded Shim Handler
@@ -77,6 +81,18 @@
 具体参考[forwarded-shim-handler功能解析](./forwarded-shim-handler功能解析.md)
 
 ### Main Handler
+
+```
+(1). 处理Activator服务的探活
+
+(2). 处理queue-proxy容器的Kubernetes的探活
+
+(3). 发送统计数据给Prometheus Exporter,Prometheus服务来拉取该信息,然后Autoscaling服务根据Prometheus服务的统计信息去做扩缩容策略
+
+(4). 将超过并发上限的请求直接拒绝返回,让客户端继续请求到没有超过并发上限的容器
+
+(5). 最终将流量转发给user-container容器
+```
 
 具体参考[master-handler功能解析](./master-handler功能解析.md)
 
