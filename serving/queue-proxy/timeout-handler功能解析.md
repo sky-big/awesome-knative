@@ -1,5 +1,7 @@
 # Timeout Handler功能解析
 
+1. 数据结构
+
 ```
 serving/pkg/queue/timeout.go
 
@@ -9,7 +11,10 @@ type timeoutHandler struct {
 	body    string                  // 超时显示信息
 	dt      time.Duration           // 超时时间
 }
+```
 
+2. Handler
+```
 func (h *timeoutHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	ctx, cancelCtx := context.WithCancel(r.Context())
 	defer cancelCtx()

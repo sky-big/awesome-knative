@@ -14,42 +14,54 @@
 
 转发的流程会经历多个Handler后成功后才会将用户流量转发给用户容器
 
-1. Probe Handler(serving/pkg/network/probe_handler.go)
+### Probe Handler(serving/pkg/network/probe_handler.go)
 
+```
 (1). 如果请求的Header里面有K-Network-Probe = probe则直接立刻返回200给请求客户端
+
 (2). 如果请求的Header里面没有K-Network-Probe = probe则将该请求继续转给后续的Handler进行处理
-(3). 具体功能参考[probe-handler功能解析](./probe-handler功能解析.md)
+```
 
-2. Tracing Handler
+具体功能参考[probe-handler功能解析](./probe-handler功能解析.md)
 
+### Tracing Handler
+
+```
 (1). 用的库是go.opencensus.io/trace
+```
 
-3. Queue-Proxy Push Metric Handler
+### Queue-Proxy Push Metric Handler
 
+```
 (1). 会上报每个请求从进入queue-proxy到user-app的整体执行时间和次数
+```
 
-(2). 具体参考[metric-handler功能解析](./metric-handler功能解析.md)
+具体参考[metric-handler功能解析](./metric-handler功能解析.md)
 
-4. Http Log Handler
+### Http Log Handler
 
+```
 (1). 记录每次请求的日志
+```
 
-(2). 具体参考[log-handler功能解析](./log-handler功能解析.md)
+具体参考[log-handler功能解析](./log-handler功能解析.md)
 
-5. TimeOut Handler
+### TimeOut Handler
 
-(1). 具体参考[timeout-hanler功能解析](./timeout-handler功能解析.md)
+具体参考[timeout-hanler功能解析](./timeout-handler功能解析.md)
 
-6. Forwarded Shim Handler
+### Forwarded Shim Handler
 
-(1). 具体参考[forwarded-shim-handler功能解析](./forwarded-shim-handler功能解析.md)
+具体参考[forwarded-shim-handler功能解析](./forwarded-shim-handler功能解析.md)
 
-7. Main Handler
+### Main Handler
 
-(1). 具体参考[master-handler功能解析](./master-handler功能解析.md)
+具体参考[master-handler功能解析](./master-handler功能解析.md)
 
-8. User Container Metric Handler
+### User Container Metric Handler
 
+```
 (1). 会上报每个请求在user-app里面精确的执行时间和具体执行次数
+```
 
-(2). 具体参考[metric功能解析](metric-handler功能解析.md)
+具体参考[metric功能解析](metric-handler功能解析.md)

@@ -11,7 +11,9 @@ type Breaker struct {
 ```
 
 2. queue-proxy容器获取token然后将请求转发给用户容器
+
 (1). 如果breaker的排队队列已满则立刻返回告诉调用方并发队列已满
+
 (2). 如果用户正常进入到排队队列后，从semaphore里获取token，如果获取成功则执行转发请求，
      否则获取token超时，则返回调用方获取token超时
 ```
