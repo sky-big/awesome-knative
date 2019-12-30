@@ -1,4 +1,4 @@
-# Queue-Proxy SideCar代码解析
+# Queue-Proxy SideCar功能解析
 
 ## 通过环境变量解析配置信息
 
