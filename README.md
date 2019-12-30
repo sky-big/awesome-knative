@@ -2,24 +2,32 @@
 
 ## Knative Pkg Binary
 
-KNative项目[PKG](https://github.com/knative/pkg)功能[解读](./pkg)
+KNative项目PKG库(https://github.com/knative/pkg)
+
+具体参考[PKG](./pkg)
 
 ## Knative Eventing
 
-KNative项目[Eventing](https://github.com/knative/eventing)功能[解读](./eventing)
+KNative项目(https://github.com/knative/eventing)
+
+具体参考[Eventing](./eventing)
 
 ## Knative Serving
 
-KNative项目[Serving](https://github.com/knative/serving)功能[解读](./serving)
+KNative项目Serving(https://github.com/knative/serving)
+
+具体参考[Serving](./serving)
 
 ## Knative Deployment
 
 ### Knative Install
+
 ```
 $ make install
 ```
 
 ### Knative UnInstall
+
 ```
 $ make uninstall
 ```

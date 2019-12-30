@@ -1,10 +1,12 @@
 # Knative Serving
 
-## [client](./client)
+## Client
 
 该目录下的代码是通过kubernetes的代码生成框架生成的serving服务相关CRD资源的SDK
 
-## [queue](queue-proxy/queue-proxy功能解析.md)
+具体参考[Client](./client)
+
+## Queue
 
 1. 该目录为用户容器的SideCar,为每个用户的POD注入的QUEUE代理容器(queue-proxy)
 
@@ -24,7 +26,9 @@
 5. 判断Ingress是否Ready
 ```
 
-## [controller](controller/controller功能解析.md)
+具体参考[Queue](./queue-proxy/README.md)
+
+## controller
 
 ```
 一. 计算资源
@@ -35,3 +39,5 @@
 二. 网络资源
 1. 根据Service资源创建Route资源
 ```
+
+具体参考[Controller](./controller/README.md)
