@@ -28,7 +28,7 @@
 
 具体参考[Queue](./queue-proxy/README.md)
 
-## controller
+## Controller
 
 ```
 一. 计算资源
@@ -41,3 +41,7 @@
 ```
 
 具体参考[Controller](./controller/README.md)
+
+## Activator
+
+具体参考[Activator](./activator/README.md)
