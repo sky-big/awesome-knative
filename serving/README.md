@@ -49,3 +49,7 @@
 ## Activator
 
 具体参考[Activator](./activator/README.md)
+
+## AutoScaler-HPA
+
+具体参考[AutoScaler](./autoscaler-hpa/README.md)
