@@ -50,6 +50,10 @@
 
 具体参考[Activator](./activator/README.md)
 
+## AutoScaler
+
+具体参考[AutoScaler](./autoscaler/README.md)
+
 ## AutoScaler-HPA
 
 具体参考[AutoScaler](./autoscaler-hpa/README.md)
